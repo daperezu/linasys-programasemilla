@@ -46,13 +46,11 @@ The platform consists of different roles and functionalities:
    ```
 3. Install dependencies (if applicable):
    ```sh
-   npm install   # For frontend
    dotnet restore  # For backend
    ```
 4. Configure environment variables.
 5. Start the development server:
    ```sh
-   npm run dev   # For frontend
    dotnet run    # For backend
    ```
 
@@ -60,7 +58,6 @@ The platform consists of different roles and functionalities:
 
 1. Build the project:
    ```sh
-   npm run build   # Frontend
    dotnet publish  # Backend
    ```
 2. Deploy to the selected environment.
