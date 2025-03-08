@@ -1,0 +1,40 @@
+﻿@page
+@model ConfirmEmailModel
+
+@{
+    Layout = "_HeadlessLayout";
+    ViewData["Title"] = "Confirma tu cuenta";
+    ViewData["BodyClasses"] = "register-page";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/login_register.css">
+}
+
+<div class="register-box">
+
+    <div class="card card-outline">
+
+        <div class="card-header text-center">
+
+            <a href="~/">
+                <img src="~/img/logo-full-color-120.png" width="120" alt="Mentoory" />
+            </a>
+            <br />
+            <a href="https://www.programasemilla.com/" target="_blank" class="mt-2 d-block">Programa<b>Semilla</b></a>
+
+        </div>
+
+        <div class="card-body">
+            
+            <div>
+                Tu cuenta ha sido confirmada. Ahora puedes ingresar a tu cuenta.
+            </div>
+
+            <div class="d-flex justify-content-around mt-5">
+                <a asp-page="./Login">Ingresar a tu cuenta</a>
+            </div>
+        </div>
+    </div>
+
+</div>

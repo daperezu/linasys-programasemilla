@@ -1,0 +1,28 @@
+<Project>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+    <PropertyGroup>
+        <NoWarn>1591;CS8618;SA1649</NoWarn> <!-- Remove this to turn on warnings for missing XML Comments -->
+    </PropertyGroup>
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\Analyzers.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="StyleCop.Analyzers">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <!-- Added due to error at .Net 9 -->
+    <!-- https://github.com/dotnet/sdk/issues/42651#issuecomment-2499415958 -->
+    <ItemGroup Condition=" '$(suppress)' != 'false' ">
+        <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-5f2m-466j-3848;https://github.com/advisories/GHSA-x5qj-9vmx-7g6g;https://github.com/advisories/GHSA-xhfc-gr8f-ffwc" />
+    </ItemGroup>
+    
+</Project>

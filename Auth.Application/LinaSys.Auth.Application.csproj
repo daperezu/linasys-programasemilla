@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Auth.Domain\LinaSys.Auth.Domain.csproj" />
+    <ProjectReference Include="..\Notification.Application\LinaSys.Notification.Application.csproj" />
+  </ItemGroup>
+</Project>

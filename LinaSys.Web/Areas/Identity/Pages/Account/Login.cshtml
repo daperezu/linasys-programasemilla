@@ -1,0 +1,102 @@
+﻿@page
+@model LoginModel
+
+@{
+    Layout = "_HeadlessLayout";
+    ViewData["Title"] = "Iniciar sesión";
+    ViewData["BodyClasses"] = "login-page";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/login_register.css">
+}
+
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline">
+
+        <div class="card-header text-center">
+
+            <a href="~/">
+                <img src="~/img/logo-full-color-120.png" width="120" alt="Mentoory" />
+            </a>
+            <br />
+            <a href="https://www.programasemilla.com/" target="_blank" class="mt-2 d-block">Programa<b>Semilla</b></a>
+
+        </div>
+
+        <div class="card-body">
+
+            <form id="account" method="post">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="Input.Identification" class="form-control" autocomplete="identification" aria-required="true" placeholder="Identificación" />
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Input.Identification" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Contraseña" />
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="icheck-primary">
+                            <input asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <button type="submit" class="btn bg-gradient-primary btn-block">Iniciar sesión</button>
+
+                        @{
+                            if (ModelState.ErrorCount > 0)
+                            {
+                                <div class="alert alert-danger mt-2">
+                                    <i class="icon fas fa-ban"></i> Sus credenciales son inválidas!
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </form>
+
+            <div class="d-flex justify-content-around mt-5">
+                <strong><a asp-page="./ForgotPassword" class="" id="forgot-password">Olvidé mi contraseña</a></strong>
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="">No tengo cuenta</a>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+<!-- /.login-box -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

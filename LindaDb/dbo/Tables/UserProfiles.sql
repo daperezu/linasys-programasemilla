@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[UserProfiles] (
+    Id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    UserId NVARCHAR(450) NOT NULL,
+    FullName NVARCHAR(255) NOT NULL,
+    CreatedAt DATETIME DEFAULT GETUTCDATE(),
+
+    CONSTRAINT FK_UserProfiles_AspNetUsers FOREIGN KEY (UserId) 
+    REFERENCES AspNetUsers(Id) ON DELETE CASCADE
+);
