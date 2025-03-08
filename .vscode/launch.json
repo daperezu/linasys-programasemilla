@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Aspire Host (Hot Reload)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "watch solution",
+            "program": "${workspaceFolder}/Aspire.AppHost/bin/Debug/net9.0/LinaSys.Aspire.AppHost.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Aspire.AppHost",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "DOTNET_USE_POLLING_FILE_WATCHER": "1"
+            },
+            "sourceFileMap": {
+                "/Users/": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "Attach to WebApp",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "justMyCode": false
+        }
+    ]
+}
