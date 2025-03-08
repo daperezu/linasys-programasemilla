@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <UserSecretsId>aspnet-LinaSys.Web-0365f249-c226-43a5-9319-81146f12a0de</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Aspire.ServiceDefaults\LinaSys.Aspire.ServiceDefaults.csproj" />
+        <ProjectReference Include="..\Auth.Application\LinaSys.Auth.Application.csproj" />
+        <ProjectReference Include="..\Auth.Infrastructure\LinaSys.Auth.Infrastructure.csproj" />
+        <ProjectReference Include="..\Notification.Infrastructure\LinaSys.Notification.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

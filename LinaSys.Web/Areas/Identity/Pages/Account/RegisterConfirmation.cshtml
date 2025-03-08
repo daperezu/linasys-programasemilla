@@ -1,0 +1,32 @@
+﻿@page
+@model RegisterConfirmationModel
+
+@{
+    Layout = "_HeadlessLayout";
+    ViewData["Title"] = "Debes confirmar tu cuenta";
+    ViewData["BodyClasses"] = "register-page";
+}
+
+<div class="register-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline">
+
+        <div class="card-header text-center">
+
+            <a href="~/">
+                <img src="~/img/logo-full-color-120.png" width="120" alt="Mentoory" />
+            </a>
+            <br />
+            <a href="https://www.programasemilla.com/" target="_blank" class="mt-2 d-block">Programa<b>Semilla</b></a>
+
+        </div>
+
+        <div class="card-body">
+
+            <h3>Debes confirmar tu cuenta</h3>
+
+            <p>Te envíamos un correo de confirmación a <b>@Model.Email</b>.</p>
+
+        </div>
+    </div>
+</div>

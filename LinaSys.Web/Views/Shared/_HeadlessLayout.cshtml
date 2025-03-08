@@ -1,0 +1,22 @@
+﻿@{
+    var bodyClasses = ViewData["BodyClasses"]?.ToString();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"] - Lina</title>
+
+    <partial name="_HeadPartial" />
+
+    @await RenderSectionAsync("Styles", required: false)
+
+</head>
+<body class="hold-transition @bodyClasses">
+
+    @RenderBody()
+
+    <partial name="_BottomPartial" />
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
