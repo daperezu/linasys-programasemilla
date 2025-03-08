@@ -25,7 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
-		Readme.txt = Readme.txt
+		nuget.config = nuget.config
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinaSys.Web", "LinaSys.Web\LinaSys.Web.csproj", "{3EA870AF-BB79-4AF9-922C-0C8A95CE8021}"

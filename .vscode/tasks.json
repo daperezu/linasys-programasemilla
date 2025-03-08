@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "restore",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "restore",
+                "--configfile",
+                "${workspaceFolder}/nuget.config"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build solution",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "--configuration",
+                "Debug",
+                "--no-restore",
+                "--nologo"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch solution",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "watch",
+                "--project",
+                "${workspaceFolder}/Aspire.AppHost/LinaSys.Aspire.AppHost.csproj",
+                "--verbose"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build Aspire Host",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "--configuration",
+                "Debug",
+                "--no-restore",
+                "--nologo",
+                "${workspaceFolder}/Aspire.AppHost/LinaSys.Aspire.AppHost.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
