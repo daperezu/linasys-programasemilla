@@ -9,6 +9,8 @@
         <ProjectReference Include="..\Auth.Application\LinaSys.Auth.Application.csproj" />
         <ProjectReference Include="..\Auth.Infrastructure\LinaSys.Auth.Infrastructure.csproj" />
         <ProjectReference Include="..\Notification.Infrastructure\LinaSys.Notification.Infrastructure.csproj" />
+        <ProjectReference Include="..\SystemFeatures.Application\LinaSys.SystemFeatures.Application.csproj" />
+        <ProjectReference Include="..\SystemFeatures.Infrastructure\LinaSys.SystemFeatures.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{41C556BD-9AA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{FDAFCB36-FA6B-42FD-A72B-396BADBBDFF2}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 		nuget.config = nuget.config
@@ -44,6 +45,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinaSys.Notification.Application", "Notification.Application\LinaSys.Notification.Application.csproj", "{FA326055-F463-41D2-6CF5-03DEE1CF18D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinaSys.Notification.Domain", "Notification.Domain\LinaSys.Notification.Domain.csproj", "{9E7C7C48-4CF1-9175-0719-F4F78F3D8A14}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SystemFeatures", "SystemFeatures", "{E5CAC10A-D375-419A-BD66-EB5B124C4448}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinaSys.SystemFeatures.Application", "SystemFeatures.Application\LinaSys.SystemFeatures.Application.csproj", "{B074C29C-1183-096B-D8BB-24AF6E9A2534}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinaSys.SystemFeatures.Domain", "SystemFeatures.Domain\LinaSys.SystemFeatures.Domain.csproj", "{495734BA-361F-C279-3C8B-2D1BA262A269}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinaSys.SystemFeatures.Infrastructure", "SystemFeatures.Infrastructure\LinaSys.SystemFeatures.Infrastructure.csproj", "{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +105,18 @@ Global
 		{9E7C7C48-4CF1-9175-0719-F4F78F3D8A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E7C7C48-4CF1-9175-0719-F4F78F3D8A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E7C7C48-4CF1-9175-0719-F4F78F3D8A14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B074C29C-1183-096B-D8BB-24AF6E9A2534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B074C29C-1183-096B-D8BB-24AF6E9A2534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B074C29C-1183-096B-D8BB-24AF6E9A2534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B074C29C-1183-096B-D8BB-24AF6E9A2534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{495734BA-361F-C279-3C8B-2D1BA262A269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{495734BA-361F-C279-3C8B-2D1BA262A269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{495734BA-361F-C279-3C8B-2D1BA262A269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{495734BA-361F-C279-3C8B-2D1BA262A269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +135,10 @@ Global
 		{6361A701-227E-AF37-4467-90C9C2DEA04C} = {A8D53274-D266-423D-B236-EFE85792F089}
 		{FA326055-F463-41D2-6CF5-03DEE1CF18D5} = {A8D53274-D266-423D-B236-EFE85792F089}
 		{9E7C7C48-4CF1-9175-0719-F4F78F3D8A14} = {A8D53274-D266-423D-B236-EFE85792F089}
+		{E5CAC10A-D375-419A-BD66-EB5B124C4448} = {F745D47D-2A20-4631-8394-C284B76D7F74}
+		{B074C29C-1183-096B-D8BB-24AF6E9A2534} = {E5CAC10A-D375-419A-BD66-EB5B124C4448}
+		{495734BA-361F-C279-3C8B-2D1BA262A269} = {E5CAC10A-D375-419A-BD66-EB5B124C4448}
+		{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1} = {E5CAC10A-D375-419A-BD66-EB5B124C4448}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {56FD55EE-5849-4731-842D-2D9504AEEED2}

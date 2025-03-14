@@ -1,5 +1,6 @@
-﻿using LinaSys.Auth.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Builder;
+﻿using LinaSys.Auth.Domain.Repositories;
+using LinaSys.Auth.Infrastructure.Persistence;
+using LinaSys.Auth.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,7 +9,7 @@ namespace LinaSys.Auth.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static WebApplicationBuilder AddAuthInfrastructure(this WebApplicationBuilder builder, string connectionName = "DefaultConnection")
+    public static IHostApplicationBuilder AddAuthInfrastructure(this IHostApplicationBuilder builder, string connectionName = "DefaultConnection")
     {
         //// Aspire extension
         builder.AddSqlServerDbContext<AuthDbContext>(
@@ -32,6 +33,11 @@ public static class DependencyInjection
                 })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<AuthDbContext>();
+
+        builder.Services.AddScoped<IProtectedResourceRepository, ProtectedResourceRepository>();
+        builder.Services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
+        builder.Services.AddScoped<IUserProtectedResourcePermissionRepository, UserProtectedResourcePermissionRepository>();
+        builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
         return builder;
     }

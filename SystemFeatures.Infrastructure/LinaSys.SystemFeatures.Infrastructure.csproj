@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
         <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
             <PrivateAssets>all</PrivateAssets>
@@ -11,7 +8,7 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Auth.Application\LinaSys.Auth.Application.csproj" />
-        <ProjectReference Include="..\Auth.Domain\LinaSys.Auth.Domain.csproj" />
+        <ProjectReference Include="..\SystemFeatures.Application\LinaSys.SystemFeatures.Application.csproj" />
+        <ProjectReference Include="..\SystemFeatures.Domain\LinaSys.SystemFeatures.Domain.csproj" />
     </ItemGroup>
 </Project>

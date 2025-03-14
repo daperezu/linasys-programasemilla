@@ -1,0 +1,1 @@
+CREATE INDEX IX_WebFeatures_IsPublic ON [dbo].WebFeatures (IsPublic);

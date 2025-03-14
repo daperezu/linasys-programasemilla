@@ -2,6 +2,9 @@
 using LinaSys.Auth.Infrastructure;
 using LinaSys.Notification.Application;
 using LinaSys.Notification.Infrastructure;
+using LinaSys.SystemFeatures.Application;
+using LinaSys.SystemFeatures.Infrastructure;
+using LinaSys.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,9 @@ builder.Services.AddNotificationApplication();
 //// Auth Domain
 builder.AddAuthInfrastructure();
 builder.Services.AddAuthApplication();
+//// SystemFeatures Domain
+builder.AddSystemFeaturesInfrastructure();
+builder.Services.AddSystemFeaturesApplication();
 
 //// MVC
 builder.Services.AddControllersWithViews();
@@ -23,7 +29,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -33,6 +39,9 @@ else
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<AuthorizationMiddleware>();
+
 app.UseRouting();
 
 app.UseAuthorization();
@@ -47,4 +56,6 @@ app.MapControllerRoute(
 app.MapRazorPages()
    .WithStaticAssets();
 
-app.Run();
+app.MapDefaultEndpoints();
+
+await app.RunAsync();

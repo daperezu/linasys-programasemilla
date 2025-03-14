@@ -126,6 +126,7 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="PostDeployment" />
+    <Folder Include="Indexes" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\AspNetRoles.sql">
@@ -156,13 +157,19 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="dbo\Tables\Projects.sql" />
-    <Build Include="dbo\Tables\RoleResources.sql" />
-    <Build Include="dbo\Tables\UserProjects.sql" />
     <PostDeploy Include="PostDeployment\SeedRolesAndUsers.sql" />
     <Build Include="dbo\Tables\UserProfiles.sql" />
-    <Build Include="dbo\Tables\Resources.sql" />
-    <Build Include="dbo\Tables\UserResources.sql" />
+    <Build Include="dbo\Tables\ProtectedResources.sql" />
+    <Build Include="dbo\Tables\WebFeatures.sql" />
+    <Build Include="dbo\Tables\UserProtectedResourcePermissions.sql" />
+    <Build Include="dbo\Tables\RoleProtectedResourcePermissions.sql" />
+    <Build Include="Indexes\IX_ProtectedResources_ResourceType.sql" />
+    <Build Include="Indexes\IX_UserProtectedResourcePermissions_ProtectedResourceIdUser.sql" />
+    <Build Include="Indexes\IX_WebFeatures_AreaControllerAction.sql" />
+    <Build Include="Indexes\IX_RoleProtectedResourcePermissions_ProtectedResourceId.sql" />
+    <Build Include="Indexes\IX_AspNetUserRoles_UserRole.sql" />
+    <Build Include="Indexes\IX_WebFeatures_IsMenu_Parent.sql" />
+    <Build Include="Indexes\IX_WebFeatures_IsPublic.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LinaDb.publish.xml" />
