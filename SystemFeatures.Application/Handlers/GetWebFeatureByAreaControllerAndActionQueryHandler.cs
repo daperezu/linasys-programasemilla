@@ -1,5 +1,5 @@
 ﻿using LinaSys.SystemFeatures.Application.Queries;
-using LinaSys.SystemFeatures.Domain.Repositories;
+using LinaSys.SystemFeatures.Domain.AggregatesModel.WebFeatureAggregate;
 using MediatR;
 
 namespace LinaSys.SystemFeatures.Application.Handlers;
@@ -10,7 +10,7 @@ public class GetWebFeatureByAreaControllerAndActionQueryHandler(IWebFeatureRepos
     public async Task<WebFeatureDto?> Handle(GetWebFeatureByAreaControllerAndActionQuery request, CancellationToken cancellationToken)
     {
         var feature = await webFeatureRepository.GetByAreaControllerAndActionAsync(request.Area, request.Controller, request.Action, cancellationToken);
-        if (feature == null)
+        if (feature is null)
         {
             return null;
         }

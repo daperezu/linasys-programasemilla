@@ -1,6 +1,4 @@
-﻿using LinaSys.SystemFeatures.Domain.Entities;
-
-namespace LinaSys.SystemFeatures.Domain.Repositories;
+﻿namespace LinaSys.SystemFeatures.Domain.AggregatesModel.WebFeatureAggregate;
 
 public interface IWebFeatureRepository
 {

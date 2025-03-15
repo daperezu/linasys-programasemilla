@@ -5,6 +5,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\Aspire.ServiceDefaults\LinaSys.Aspire.ServiceDefaults.csproj" />
         <ProjectReference Include="..\Auth.Application\LinaSys.Auth.Application.csproj" />
         <ProjectReference Include="..\Auth.Infrastructure\LinaSys.Auth.Infrastructure.csproj" />

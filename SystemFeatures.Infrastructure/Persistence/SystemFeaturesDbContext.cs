@@ -1,9 +1,10 @@
-﻿using LinaSys.SystemFeatures.Domain.Entities;
+﻿using LinaSys.SystemFeatures.Domain.AggregatesModel.WebFeatureAggregate;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinaSys.SystemFeatures.Infrastructure.Persistence;
 
-public class SystemFeaturesDbContext(DbContextOptions<SystemFeaturesDbContext> options) : DbContext(options)
+public partial class SystemFeaturesDbContext(DbContextOptions<SystemFeaturesDbContext> options, IMediator mediator) : DbContext(options)
 {
     public virtual DbSet<WebFeature> WebFeatures { get; set; }
 

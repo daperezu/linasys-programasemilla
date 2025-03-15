@@ -13,5 +13,6 @@
     <ItemGroup>
         <ProjectReference Include="..\Auth.Application\LinaSys.Auth.Application.csproj" />
         <ProjectReference Include="..\Auth.Domain\LinaSys.Auth.Domain.csproj" />
+        <ProjectReference Include="..\LinaSys.Shared\LinaSys.Shared.csproj" />
     </ItemGroup>
 </Project>

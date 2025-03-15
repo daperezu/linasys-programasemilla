@@ -54,6 +54,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinaSys.SystemFeatures.Doma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinaSys.SystemFeatures.Infrastructure", "SystemFeatures.Infrastructure\LinaSys.SystemFeatures.Infrastructure.csproj", "{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinaSys.Shared", "LinaSys.Shared\LinaSys.Shared.csproj", "{E2C2A1D1-183F-4F46-A352-0E2EE46EC4DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{512B3117-B194-419D-9BC4-F003E7B43E0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +121,10 @@ Global
 		{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2C2A1D1-183F-4F46-A352-0E2EE46EC4DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2C2A1D1-183F-4F46-A352-0E2EE46EC4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2C2A1D1-183F-4F46-A352-0E2EE46EC4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2C2A1D1-183F-4F46-A352-0E2EE46EC4DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +147,8 @@ Global
 		{B074C29C-1183-096B-D8BB-24AF6E9A2534} = {E5CAC10A-D375-419A-BD66-EB5B124C4448}
 		{495734BA-361F-C279-3C8B-2D1BA262A269} = {E5CAC10A-D375-419A-BD66-EB5B124C4448}
 		{6B8C6B2C-04C2-B2E3-0503-7BBEE2D843E1} = {E5CAC10A-D375-419A-BD66-EB5B124C4448}
+		{E2C2A1D1-183F-4F46-A352-0E2EE46EC4DA} = {512B3117-B194-419D-9BC4-F003E7B43E0F}
+		{512B3117-B194-419D-9BC4-F003E7B43E0F} = {F745D47D-2A20-4631-8394-C284B76D7F74}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {56FD55EE-5849-4731-842D-2D9504AEEED2}

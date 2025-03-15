@@ -2,6 +2,8 @@
 using LinaSys.Auth.Infrastructure.Persistence;
 using LinaSys.Auth.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -11,18 +13,23 @@ public static class DependencyInjection
 {
     public static IHostApplicationBuilder AddAuthInfrastructure(this IHostApplicationBuilder builder, string connectionName = "DefaultConnection")
     {
-        //// Aspire extension
-        builder.AddSqlServerDbContext<AuthDbContext>(
-            connectionName,
-            configureDbContextOptions: opts =>
-            {
-                //// opts.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-                //// opts.EnableThreadSafetyChecks(false);
-                opts.EnableSensitiveDataLogging();
-                opts.EnableDetailedErrors();
-            });
+        var connectionString = builder.Configuration.GetConnectionString(connectionName) ?? throw new InvalidOperationException($"Connection string '{connectionName}' not found.");
 
-        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+        builder.Services.AddDbContext<AuthDbContext>(opts =>
+        {
+            opts.UseSqlServer(connectionString);
+
+            //// opts.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
+            //// opts.EnableThreadSafetyChecks(false);
+            opts.EnableSensitiveDataLogging();
+            opts.EnableDetailedErrors();
+        });
+
+        //// Aspire extension
+        builder.EnrichSqlServerDbContext<AuthDbContext>(settings =>
+        {
+            settings.CommandTimeout = 30;
+        });
 
         builder.Services.AddDefaultIdentity<Domain.Entities.User>(
             opts =>

@@ -1,10 +1,11 @@
 ﻿using LinaSys.Auth.Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinaSys.Auth.Infrastructure.Persistence;
 
-public class AuthDbContext(DbContextOptions<AuthDbContext> options)
+public partial class AuthDbContext(DbContextOptions<AuthDbContext> options, IMediator mediator)
     : IdentityDbContext<User>(options)
 {
     public virtual DbSet<ProtectedResource> ProtectedResources { get; set; }
@@ -17,6 +18,8 @@ public class AuthDbContext(DbContextOptions<AuthDbContext> options)
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
+
         builder.Entity<ProtectedResource>(entity =>
         {
             entity.HasIndex(e => e.ExternalId, "IX_ProtectedResources_ExternalId").IsUnique();

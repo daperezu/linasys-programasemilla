@@ -9,28 +9,41 @@ namespace LinaSys.Web;
 
 public class AuthorizationMiddleware(
     RequestDelegate next,
-    IMediator mediator,
+    IServiceScopeFactory scopeFactory,
     IMemoryCache cache,
-    ILogger<AuthorizationMiddleware> logger,
-    Tracer tracer)
+    ILogger<AuthorizationMiddleware> logger)
 {
+    private static readonly HashSet<string> _staticFileExtensions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ".css", ".js", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico", ".woff", ".woff2", ".ttf", ".otf", ".eot", ".mp4", ".webm", ".json", ".txt", ".xml",
+    };
+
     public async Task Invoke(HttpContext context)
     {
+        using var scope = scopeFactory.CreateScope();
+        var tracer = scope.ServiceProvider.GetRequiredService<Tracer>();
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
         using var span = tracer.StartActiveSpan(nameof(AuthorizationMiddleware));
+
+        if (IsStaticFileRequest(context))
+        {
+            await next(context);
+            return;
+        }
 
         var requestPath = context.Request.Path.Value?.ToLower();
         var routeData = context.GetRouteData();
-        var area = routeData.Values["area"]?.ToString();
-        var controller = routeData.Values["controller"]?.ToString();
-        var action = routeData.Values["action"]?.ToString();
+        var area = routeData.Values["area"]?.ToString() ?? string.Empty;
+        var controller = routeData.Values["controller"]?.ToString() ?? "Home";
+        var action = routeData.Values["action"]?.ToString() ?? "Index";
         var protectedResourceInWebFeature = routeData.Values["id"]?.ToString();
 
         ArgumentException.ThrowIfNullOrWhiteSpace(requestPath);
-        ArgumentException.ThrowIfNullOrWhiteSpace(area);
         ArgumentException.ThrowIfNullOrWhiteSpace(controller);
         ArgumentException.ThrowIfNullOrWhiteSpace(action);
 
-        var webFeatureInternalId = await DemandValidWebFeature(area, controller, action, requestPath, span);
+        var webFeatureInternalId = await DemandValidWebFeature(area, controller, action, requestPath, mediator, span);
         switch (webFeatureInternalId)
         {
             case 0: // Public Access
@@ -41,7 +54,7 @@ public class AuthorizationMiddleware(
                 return;
         }
 
-        var authenticatedUser = await DemandValidAuthenticatedUserAsync(context.User, requestPath, span);
+        var authenticatedUser = await DemandValidAuthenticatedUserAsync(context.User, requestPath, mediator, span);
         if (!authenticatedUser.HasValue)
         {
             context.Response.StatusCode = StatusCodes.Status403Forbidden;
@@ -51,7 +64,7 @@ public class AuthorizationMiddleware(
         var userId = authenticatedUser.Value.UserId;
         var userRoles = authenticatedUser.Value.Roles;
 
-        var hasAccessToWebFeature = await DemandUserHasAccessToProtectedResource(userId, userRoles, webFeatureInternalId, requestPath, span);
+        var hasAccessToWebFeature = await DemandUserHasAccessToProtectedResource(userId, userRoles, webFeatureInternalId, requestPath, mediator, span);
 
         if (!hasAccessToWebFeature)
         {
@@ -59,25 +72,36 @@ public class AuthorizationMiddleware(
             return;
         }
 
-        var hasAccessToProtectedResource = await DemandUserHasAccessToProtectedResourceInWebFeatureIfNecessary(userId, userRoles, protectedResourceInWebFeature, requestPath, span);
+        var hasAccessToProtectedResource = await DemandUserHasAccessToProtectedResourceInWebFeatureIfNecessary(userId, userRoles, protectedResourceInWebFeature, requestPath, mediator, span);
         if (hasAccessToProtectedResource == -1)
         {
             context.Response.StatusCode = StatusCodes.Status403Forbidden;
             return;
         }
 
-        span.SetAttribute("authorization.status", "Access Granted");
+        //// span.SetAttribute("authorization.status", "Access Granted");
 
         await next(context);
     }
 
-    private async Task<bool> DemandUserHasAccessToProtectedResource(string userId, IReadOnlyList<string> roles, long protectedResourceInternalId, string requestPath, TelemetrySpan span)
+    private static bool IsStaticFileRequest(HttpContext context)
     {
-        //// Ensure the user has access to the WebFeature either by role or user specific
+        var path = context.Request.Path;
+
+        return path.HasValue && _staticFileExtensions.Contains(Path.GetExtension(path.Value));
+    }
+
+    private async Task<bool> DemandUserHasAccessToProtectedResource(
+        string userId,
+        IReadOnlyList<string> roles,
+        long protectedResourceInternalId,
+        string requestPath,
+        IMediator mediator,
+        TelemetrySpan span)
+    {
         var hasRoleAccess = await mediator.Send(new RoleHasAccessToProtectedResourceQuery(roles.ToList(), protectedResourceInternalId));
         if (!hasRoleAccess)
         {
-            //// If no access by role, then check user specific access
             var hasUserAccess = await mediator.Send(new UserHasAccessToProtectedResourceQuery(userId, protectedResourceInternalId));
             if (!hasUserAccess)
             {
@@ -90,7 +114,13 @@ public class AuthorizationMiddleware(
         return true;
     }
 
-    private async Task<int> DemandUserHasAccessToProtectedResourceInWebFeatureIfNecessary(string userId, IReadOnlyList<string> roles, string? protectedResourceExternalId, string requestPath, TelemetrySpan span)
+    private async Task<int> DemandUserHasAccessToProtectedResourceInWebFeatureIfNecessary(
+        string userId,
+        IReadOnlyList<string> roles,
+        string? protectedResourceExternalId,
+        string requestPath,
+        IMediator mediator,
+        TelemetrySpan span)
     {
         if (!string.IsNullOrEmpty(protectedResourceExternalId))
         {
@@ -109,7 +139,7 @@ public class AuthorizationMiddleware(
                     return -1; // Protected Resource not registered
                 }
 
-                var hasAccessToProtectedResource = await DemandUserHasAccessToProtectedResource(userId, roles, protectedResource.InternalId, requestPath, span);
+                var hasAccessToProtectedResource = await DemandUserHasAccessToProtectedResource(userId, roles, protectedResource.InternalId, requestPath, mediator, span);
                 return hasAccessToProtectedResource ? 1 : -1;
             }
             else
@@ -123,7 +153,11 @@ public class AuthorizationMiddleware(
         return 0; // No protected resource in the request
     }
 
-    private async Task<(string UserId, IReadOnlyList<string> Roles)?> DemandValidAuthenticatedUserAsync(ClaimsPrincipal user, string requestPath, TelemetrySpan span)
+    private async Task<(string UserId, IReadOnlyList<string> Roles)?> DemandValidAuthenticatedUserAsync(
+        ClaimsPrincipal user,
+        string requestPath,
+        IMediator mediator,
+        TelemetrySpan span)
     {
         if (user.Identity is null)
         {
@@ -163,11 +197,13 @@ public class AuthorizationMiddleware(
         return (userId, userRoles);
     }
 
-    /// <summary>
-    /// Check if the WebFeature is valid and if it's public or not.
-    /// </summary>
-    /// <returns>Returns -1 in case of failed authorization, 0 if it is public and other values greater than zero with the Internal protected resource id.</returns>
-    private async Task<long> DemandValidWebFeature(string area, string controller, string action, string requestPath, TelemetrySpan span)
+    private async Task<long> DemandValidWebFeature(
+        string area,
+        string controller,
+        string action,
+        string requestPath,
+        IMediator mediator,
+        TelemetrySpan span)
     {
         var webFeature = await cache.GetOrCreateAsync($"{nameof(GetWebFeatureByAreaControllerAndActionQuery)}_{action}_{controller}_{action}", async entry =>
         {
@@ -189,7 +225,6 @@ public class AuthorizationMiddleware(
             return 0;
         }
 
-        //// Since the WebFeature is not public, it should have a ProtectedResource in our DB
         var protectedWebFeature = await cache.GetOrCreateAsync($"{nameof(GetProtectedResourceByExternalIdQuery)}_{webFeature.ExternalId}", async entry =>
         {
             entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10);

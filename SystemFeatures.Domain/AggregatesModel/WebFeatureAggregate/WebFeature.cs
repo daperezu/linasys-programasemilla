@@ -1,9 +1,10 @@
-﻿namespace LinaSys.SystemFeatures.Domain.Entities;
+﻿using LinaSys.SystemFeatures.Domain.SeedWork;
+
+namespace LinaSys.SystemFeatures.Domain.AggregatesModel.WebFeatureAggregate;
 
 public partial class WebFeature
+    : Entity, IAggregateRoot
 {
-    public long Id { get; set; }
-
     public Guid ExternalId { get; set; }
 
     public string Name { get; set; }
