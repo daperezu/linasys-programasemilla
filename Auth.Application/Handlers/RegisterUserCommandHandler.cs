@@ -19,12 +19,12 @@ public class RegisterUserCommandHandler(UserManager<User> userManager, ILogger<R
 
         var result = await userManager.CreateAsync(user, request.Password);
 
-        if (!result.Succeeded)
+        if (result.Succeeded)
         {
-            logger.LogError("User registration failed for {Email}", request.Email);
-            return (null, result.Errors.Select(s => s.Description));
+            return (user, null);
         }
 
-        return (user, null);
+        logger.LogError("User registration failed for {Email}", request.Email);
+        return (null, result.Errors.Select(s => s.Description));
     }
 }

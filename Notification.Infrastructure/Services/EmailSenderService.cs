@@ -1,4 +1,6 @@
-﻿using MailKit.Net.Smtp;
+﻿#pragma warning disable S3928 // Parameter names used into ArgumentException constructors should match an existing one
+
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -8,21 +10,22 @@ namespace LinaSys.Notification.Infrastructure.Services;
 
 public class EmailSenderService(IConfiguration configuration, ILogger<EmailSenderService> logger)
 {
+    private const string ConfigKeyNotFound = "Config key not found";
+    private const string FromAddressKey = "EmailSender:FromAddress";
+    private const string FromNameKey = "EmailSender:FromName";
     private const string PasswordKey = "EmailSender:Password";
     private const string SmtpPortKey = "EmailSender:SmtpPort";
     private const string SmtpServerKey = "EmailSender:SmtpServer";
     private const string UsernameKey = "EmailSender:Username";
-    private const string FromNameKey = "EmailSender:FromName";
-    private const string FromAddressKey = "EmailSender:FromAddress";
 
     private readonly Lazy<MailtrapConfiguration> _mailtrapConfiguration = new(
         () => new MailtrapConfiguration(
-            configuration[SmtpServerKey] ?? throw new ArgumentNullException(SmtpServerKey),
+            configuration[SmtpServerKey] ?? throw new ArgumentNullException(SmtpServerKey, ConfigKeyNotFound),
             int.Parse(configuration[SmtpPortKey] ?? "587"),
-            configuration[UsernameKey] ?? throw new ArgumentNullException(UsernameKey),
-            configuration[PasswordKey] ?? throw new ArgumentNullException(PasswordKey),
-            configuration[FromNameKey] ?? throw new ArgumentNullException(FromNameKey),
-            configuration[FromAddressKey] ?? throw new ArgumentNullException(FromAddressKey)),
+            configuration[UsernameKey] ?? throw new ArgumentNullException(UsernameKey, ConfigKeyNotFound),
+            configuration[PasswordKey] ?? throw new ArgumentNullException(PasswordKey, ConfigKeyNotFound),
+            configuration[FromNameKey] ?? throw new ArgumentNullException(FromNameKey, ConfigKeyNotFound),
+            configuration[FromAddressKey] ?? throw new ArgumentNullException(FromAddressKey, ConfigKeyNotFound)),
         LazyThreadSafetyMode.PublicationOnly);
 
     public async Task SendEmailAsync(string to, string subject, string body)
@@ -44,3 +47,4 @@ public class EmailSenderService(IConfiguration configuration, ILogger<EmailSende
 
     private record MailtrapConfiguration(string SmtpServer, int SmtpPort, string Username, string Password, string FromName, string FromAddress);
 }
+#pragma warning restore S3928

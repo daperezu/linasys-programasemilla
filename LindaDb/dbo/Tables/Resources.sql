@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[Resources] (
-    Id BIGINT IDENTITY(1,1) PRIMARY KEY,
-    Name NVARCHAR(100) NOT NULL,
-    Controller NVARCHAR(100) NOT NULL,
-    Action NVARCHAR(100) NOT NULL,
-    UrlPath NVARCHAR(255) NULL
-);

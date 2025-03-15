@@ -91,6 +91,12 @@ public static class Extensions
                     .AddHttpClientInstrumentation();
             });
 
+        builder.Services.AddScoped(sp =>
+        {
+            var provider = sp.GetRequiredService<TracerProvider>();
+            return provider.GetTracer(builder.Environment.ApplicationName);
+        });
+
         builder.AddOpenTelemetryExporters();
 
         return builder;

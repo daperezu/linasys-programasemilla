@@ -1,0 +1,1 @@
+CREATE INDEX IX_UserProtectedResourcePermissions_ProtectedResourceIdUser ON dbo.UserProtectedResourcePermissions (ProtectedResourceId, UserId);

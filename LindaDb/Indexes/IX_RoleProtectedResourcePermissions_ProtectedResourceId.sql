@@ -1,0 +1,1 @@
+CREATE INDEX IX_RoleProtectedResourcePermissions_ProtectedResourceId ON RoleProtectedResourcePermissions (RoleId, ProtectedResourceId);

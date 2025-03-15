@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LinaSys.Shared\LinaSys.Shared.csproj" />
+        <ProjectReference Include="..\SystemFeatures.Application\LinaSys.SystemFeatures.Application.csproj" />
+        <ProjectReference Include="..\SystemFeatures.Domain\LinaSys.SystemFeatures.Domain.csproj" />
+    </ItemGroup>
+</Project>
